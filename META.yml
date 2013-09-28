@@ -7,7 +7,7 @@ build_requires:
 configure_requires:
   CPAN::Meta: 0
   CPAN::Meta::Prereqs: 0
-  ExtUtils::ParseXS: 3.23
+  ExtUtils::ParseXS: 3.22
   File::pushd: 0
   Module::Build: 0.38
 dynamic_config: 0
@@ -29,7 +29,7 @@ no_index:
 provides:
   Text::Markdown::Hoedown:
     file: lib/Text/Markdown/Hoedown.pm
-    version: 0.01
+    version: 0.02
 requires:
   Exporter: 0
   parent: 0
@@ -38,7 +38,7 @@ resources:
   bugtracker: https://github.com/tokuhirom/Text-Markdown-Hoedown/issues
   homepage: https://github.com/tokuhirom/Text-Markdown-Hoedown
   repository: git://github.com/tokuhirom/Text-Markdown-Hoedown.git
-version: 0.01
+version: 0.02
 x_contributors:
   - 'Ben Noordhuis <info@bnoordhuis.nl>'
   - 'Bruno Michel <bruno.michel@af83.com>'

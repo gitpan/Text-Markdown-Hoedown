@@ -4,28 +4,46 @@ use strict;
 use warnings;
 use parent qw(Exporter);
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
-our @EXPORT = qw(markdown);
+our @EXPORT = qw(
+    markdown
+    markdown_toc
+);
 
 use XSLoader;
 XSLoader::load(__PACKAGE__, $VERSION);
 
 sub markdown {
-    my ($str, $html_options, $extensions, $max_nesting) = @_;
-    if (not defined $html_options) {
-        $html_options = 0;
-    }
-    if (not defined $extensions) {
-        $extensions = 0;
-    }
-    if (not defined $max_nesting) {
-        $max_nesting = 16;
-    }
+    my $str = shift;
+    my %args = (
+        html_options => 0,
+        extensions   => 0,
+        max_nesting  => 16,
+        @_,
+    );
 
     my $cb = Text::Markdown::Hoedown::Callbacks->new();
-    my $opaque = $cb->html_renderer($html_options);
-    my $md = Text::Markdown::Hoedown::Markdown->new($extensions, $max_nesting, $cb, $opaque);
+    my $opaque = $cb->html_renderer(
+        $args{html_options},
+        5 # nesting_level
+    );
+    my $md = Text::Markdown::Hoedown::Markdown->new($args{extensions}, $args{max_nesting}, $cb, $opaque);
+    return $md->render($str);
+}
+
+sub markdown_toc {
+    my $str = shift;
+    my %args = (
+        nesting_level => 6,
+        extensions    => 0,
+        max_nesting   => 16,
+        @_,
+    );
+
+    my $cb = Text::Markdown::Hoedown::Callbacks->new();
+    my $opaque = $cb->html_toc_renderer($args{nesting_level});
+    my $md = Text::Markdown::Hoedown::Markdown->new($args{extensions}, $args{max_nesting}, $cb, $opaque);
     return $md->render($str);
 }
 
@@ -63,19 +81,89 @@ hoedown is a forking project from sundown.
 
 =over 4
 
-=item C< my $out = markdown($src :Str, $extensions:Int, $options:Int, $max_nesting:Int) :Str >
+=item C< my $out = markdown($src :Str, %options) :Str >
 
 Rendering markdown.
+
+Options are following:
+
+=over 4
+
+=item extensions
+
+This is bit flag.  You can use the flags by '|' operator.
+Values are following:
+
+    enum hoedown_extensions {
+        HOEDOWN_EXT_NO_INTRA_EMPHASIS = (1 << 0),
+        HOEDOWN_EXT_TABLES = (1 << 1),
+        HOEDOWN_EXT_FENCED_CODE = (1 << 2),
+        HOEDOWN_EXT_AUTOLINK = (1 << 3),
+        HOEDOWN_EXT_STRIKETHROUGH = (1 << 4),
+        HOEDOWN_EXT_UNDERLINE = (1 << 5),
+        HOEDOWN_EXT_SPACE_HEADERS = (1 << 6),
+        HOEDOWN_EXT_SUPERSCRIPT = (1 << 7),
+        HOEDOWN_EXT_LAX_SPACING = (1 << 8),
+        HOEDOWN_EXT_DISABLE_INDENTED_CODE = (1 << 9),
+        HOEDOWN_EXT_HIGHLIGHT = (1 << 10),
+        HOEDOWN_EXT_FOOTNOTES = (1 << 11),
+        HOEDOWN_EXT_QUOTE = (1 << 12)
+    };
+
+=item html_options
+
+This is bit flag.  You can use the flags by '|' operator.
+Values are following:
+
+    typedef enum {
+        HOEDOWN_HTML_SKIP_HTML = (1 << 0),
+        HOEDOWN_HTML_SKIP_STYLE = (1 << 1),
+        HOEDOWN_HTML_SKIP_IMAGES = (1 << 2),
+        HOEDOWN_HTML_SKIP_LINKS = (1 << 3),
+        HOEDOWN_HTML_EXPAND_TABS = (1 << 4),
+        HOEDOWN_HTML_SAFELINK = (1 << 5),
+        HOEDOWN_HTML_TOC = (1 << 6),
+        HOEDOWN_HTML_HARD_WRAP = (1 << 7),
+        HOEDOWN_HTML_USE_XHTML = (1 << 8),
+        HOEDOWN_HTML_ESCAPE = (1 << 9),
+        HOEDOWN_HTML_PRETTIFY = (1 << 10)
+    } hoedown_html_render_mode;
+
+=item max_nesting
+
+I don't know what this do.
+
+=back
+
+=item C<< markdown_toc($src:Str, %opts) :Str >>
+
+Generate TOC HTML from C<$str>.
+
+Options are following:
+
+=over 4
+
+=item nesting_level
+
+Maximum nesting level for TOC.
+
+=item extensions
+
+Same as above.
+
+=item max_nesting
+
+Same as above.
+
+=back
+
+All C<HOEDOWN_*> constants are exported by default.
 
 =back
 
 =head1 TODO
 
 =over 4
-
-=item Export constants
-
-=item Document about constants
 
 =item Document about low level APIs
 
