@@ -3,6 +3,7 @@ Changes
 LICENSE
 META.json
 README.md
+author/generate.pl
 builder/MyBuilder.pm
 cpanfile
 hoedown/LICENSE
@@ -74,10 +75,13 @@ hoedown/test/MarkdownTest_1.0.3/Tests/Tidyness.html
 hoedown/test/MarkdownTest_1.0.3/Tests/Tidyness.text
 lib/Text/Markdown/Hoedown.pm
 lib/Text/Markdown/Hoedown.xs
+lib/Text/Markdown/gen.callback.c
+lib/Text/Markdown/gen.callback.inc
 lib/Text/Markdown/ppport.h
 minil.toml
 t/00_compile.t
 t/01_simple.t
 t/02_toc.t
+t/03_custom.t
 META.yml
 MANIFEST

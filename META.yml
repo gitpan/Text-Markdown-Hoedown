@@ -11,7 +11,7 @@ configure_requires:
   File::pushd: 0
   Module::Build: 0.38
 dynamic_config: 0
-generated_by: 'Minilla/v0.6.7, CPAN::Meta::Converter version 2.132510'
+generated_by: 'Minilla/v0.7.0, CPAN::Meta::Converter version 2.132510'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -21,15 +21,13 @@ no_index:
   directory:
     - t
     - xt
-    - inc
-    - share
-    - eg
-    - examples
-    - author
+    - tools
+    - builder
+    - hoedown
 provides:
   Text::Markdown::Hoedown:
     file: lib/Text/Markdown/Hoedown.pm
-    version: 0.02
+    version: 0.03
 requires:
   Exporter: 0
   parent: 0
@@ -38,7 +36,7 @@ resources:
   bugtracker: https://github.com/tokuhirom/Text-Markdown-Hoedown/issues
   homepage: https://github.com/tokuhirom/Text-Markdown-Hoedown
   repository: git://github.com/tokuhirom/Text-Markdown-Hoedown.git
-version: 0.02
+version: 0.03
 x_contributors:
   - 'Ben Noordhuis <info@bnoordhuis.nl>'
   - 'Bruno Michel <bruno.michel@af83.com>'
