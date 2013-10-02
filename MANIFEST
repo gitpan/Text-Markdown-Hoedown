@@ -4,6 +4,7 @@ LICENSE
 META.json
 README.md
 author/generate.pl
+author/tmpl/Callbacks.pod
 builder/MyBuilder.pm
 cpanfile
 hoedown/LICENSE
@@ -75,6 +76,8 @@ hoedown/test/MarkdownTest_1.0.3/Tests/Tidyness.html
 hoedown/test/MarkdownTest_1.0.3/Tests/Tidyness.text
 lib/Text/Markdown/Hoedown.pm
 lib/Text/Markdown/Hoedown.xs
+lib/Text/Markdown/Hoedown/Callbacks.pod
+lib/Text/Markdown/Hoedown/Markdown.pod
 lib/Text/Markdown/gen.callback.c
 lib/Text/Markdown/gen.callback.inc
 lib/Text/Markdown/ppport.h
