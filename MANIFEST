@@ -3,6 +3,7 @@ Changes
 LICENSE
 META.json
 README.md
+author/benchmark.pl
 author/generate.pl
 author/tmpl/Callbacks.pod
 builder/MyBuilder.pm

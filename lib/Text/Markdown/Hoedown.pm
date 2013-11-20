@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use parent qw(Exporter);
 
-our $VERSION = "0.07";
+our $VERSION = "1.00";
 
 our @EXPORT = qw(
     markdown
@@ -24,11 +24,15 @@ sub markdown {
         @_,
     );
 
-    my $cb = Text::Markdown::Hoedown::Callbacks->html_renderer(
+    my $renderer = Text::Markdown::Hoedown::Renderer::HTML->new(
         $args{html_options},
         $args{toc_nesting_lvl},
     );
-    my $md = Text::Markdown::Hoedown::Markdown->new($args{extensions}, $args{max_nesting}, $cb);
+    my $md = Text::Markdown::Hoedown::Markdown->new(
+        $args{extensions},
+        $args{max_nesting},
+        $renderer
+    );
     return $md->render($str);
 }
 
@@ -41,10 +45,14 @@ sub markdown_toc {
         @_,
     );
 
-    my $cb = Text::Markdown::Hoedown::Callbacks->html_toc_renderer(
+    my $renderer = Text::Markdown::Hoedown::Renderer::HTMLTOC->new(
         $args{nesting_level},
     );
-    my $md = Text::Markdown::Hoedown::Markdown->new($args{extensions}, $args{max_nesting}, $cb);
+    my $md = Text::Markdown::Hoedown::Markdown->new(
+        $args{extensions},
+        $args{max_nesting},
+        $renderer,
+    );
     return $md->render($str);
 }
 
