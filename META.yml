@@ -28,7 +28,7 @@ no_index:
 provides:
   Text::Markdown::Hoedown:
     file: lib/Text/Markdown/Hoedown.pm
-    version: 1.00
+    version: 1.01
 requires:
   Exporter: 0
   parent: 0
@@ -37,7 +37,7 @@ resources:
   bugtracker: https://github.com/tokuhirom/Text-Markdown-Hoedown/issues
   homepage: https://github.com/tokuhirom/Text-Markdown-Hoedown
   repository: git://github.com/tokuhirom/Text-Markdown-Hoedown.git
-version: 1.00
+version: 1.01
 x_contributors:
   - 'Ben Noordhuis <info@bnoordhuis.nl>'
   - 'Bruno Michel <bruno.michel@af83.com>'
